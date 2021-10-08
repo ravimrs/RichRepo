@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="4eb10896-ff9e-4dac-ba68-c97bcf2ad6d4" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="richrepoFlow" doc:id="d7f662d7-1746-491e-9a41-44b3f650e75f" >
+		<http:listener doc:name="Listener" doc:id="aeaaf805-33ea-4b0c-81a9-5ca68244afbc" config-ref="HTTP_Listener_config" path="/rich"/>
+		<logger level="INFO" doc:name="Logger" doc:id="6dfba6f4-dfc9-47f1-85f8-8523bbdaebb3" message="incoming msg :: #[payload]"/>
+		<set-payload value='#["Hi " ++ payload.Name ++ "How are you?"]' doc:name="Set Payload" doc:id="db368165-3217-4403-af8b-9a31e08ed9ff" mimeType="application/json"/>
+	</flow>
+</mule>
